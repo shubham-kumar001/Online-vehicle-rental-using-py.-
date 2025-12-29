@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation | DriveEasy Rentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .confirmation-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .confirmation-header i {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .confirmation-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .confirmation-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid #28a745;
+        }
+        
+        .confirmation-details h2 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .detail-value {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .detail-value.amount {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .status-confirmed {
+            color: #28a745;
+            font-weight: bold;
+            background: #d4edda;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .confirmation-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .caution-section {
+            margin: 40px 0;
+        }
+        
+        .caution-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .caution-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .caution-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .caution-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .caution-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .caution-card li {
+            padding: 8px 0;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .caution-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .caution-card li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .emergency-contact {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .emergency-contact h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-info p {
+            margin: 10px 0;
+            color: #856404;
+        }
+        
+        .next-steps {
+            background: #e7f5ff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .next-steps h3 {
+            color: #0c5460;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .next-steps ol {
+            padding-left: 20px;
+            color: #0c5460;
+        }
+        
+        .next-steps li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 20px;
+            }
+            
+            .confirmation-actions {
+                flex-direction: column;
+            }
+            
+            .caution-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="confirmation-container">
+            <div class="confirmation-header success">
+                <i class="fas fa-check-circle"></i>
+                <h1>Booking Confirmed!</h1>
+                <p>Your booking has been successfully processed</p>
+            </div>
+            
+            <div class="confirmation-card">
+                <div class="confirmation-details">
+                    <h2><i class="fas fa-receipt"></i> Booking Details</h2>
+                    
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Booking ID:</span>
+                            <span class="detail-value">{{ booking[2] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Vehicle:</span>
+                            <span class="detail-value">{{ booking[4] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Rental Type:</span>
+                            <span class="detail-value">{{ booking[5] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Start Date:</span>
+                            <span class="detail-value">{{ booking[6] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Total Amount:</span>
+                            <span class="detail-value amount">₹{{ booking[7] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Payment Method:</span>
+                            <span class="detail-value">{{ booking[8]|replace('_', ' ')|title }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Booking Date:</span>
+                            <span class="detail-value">{{ booking[9] }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value status-confirmed">Confirmed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-actions">
+                    <a href="{{ url_for('thankyou') }}" class="btn btn-primary">
+                        <i class="fas fa-print"></i> Print Receipt
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                        <i class="fas fa-home"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+            
+            <div class="caution-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Important Information & Cautions</h2>
+                
+                <div class="caution-cards">
+                    <div class="caution-card">
+                        <h3><i class="fas fa-file-alt"></i> Before You Rent</h3>
+                        <ul>
+                            <li>Carry your valid Driving License and Government ID (Aadhaar/Passport)</li>
+                            <li>Read rental agreements, insurance details, and payment terms carefully</li>
+                            <li>Inspect vehicle for dents, scratches, and check tires, brakes, lights</li>
+                            <li>Confirm vehicle insurance coverage</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="caution-card">
+                        <h3><i class="fas fa-car-crash"></i> While Renting & Driving</h3>
+                        <ul>
+                            <li>Take video/photos of vehicle condition before starting</li>
+                            <li>Do a short test run (100-200m) to check all controls</li>
+                            <li>Always use provided helmets for two-wheelers</li>
+                            <li>Be aware of local traffic regulations</li>
+                            <li>Avoid smoking and keep interiors clean</li>
+                            <li>Drive responsibly and within speed limits</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="caution-card">
+                        <h3><i class="fas fa-undo-alt"></i> Post-Rental</h3>
+                        <ul>
+                            <li>Return vehicle on time to avoid late fees</li>
+                            <li>Ensure no new damage before deposit return</li>
+                            <li>Return with same fuel level as provided</li>
+                            <li>Report any issues immediately</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="emergency-contact">
+                    <h3><i class="fas fa-phone-alt"></i> Emergency Contacts</h3>
+                    <div class="contact-info">
+                        <p><strong>Roadside Assistance:</strong> 1800-123-4567</p>
+                        <p><strong>Customer Support:</strong> 1800-765-4321</p>
+                        <p><strong>Email:</strong> support@driveeasyrentals.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="next-steps">
+                <h3><i class="fas fa-directions"></i> Next Steps</h3>
+                <ol>
+                    <li>Visit our nearest branch 30 minutes before your booking time</li>
+                    <li>Present your booking ID and original documents</li>
+                    <li>Complete vehicle inspection with our staff</li>
+                    <li>Sign the rental agreement</li>
+                    <li>Pay security deposit (if applicable)</li>
+                    <li>Collect vehicle keys and enjoy your ride!</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

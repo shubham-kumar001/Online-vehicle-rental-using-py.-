@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body { font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .login-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); width: 400px; }
+        h2 { text-align: center; color: #333; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        button { background: #667eea; color: white; padding: 15px; border: none; border-radius: 8px; width: 100%; cursor: pointer; }
+        a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login to DriveEasy</h2>
+        <form method="POST">
+            <input type="text" name="mobile" placeholder="Mobile Number" required>
+            <input type="text" name="aadhar" placeholder="Aadhar Number" required>
+            <button type="submit">Login</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px;">New user? <a href="/register">Register here</a></p>
+        <p style="text-align: center;"><a href="/">Back to Home</a></p>
+    </div>
+</body>
+</html>

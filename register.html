@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        body { font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .register-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); width: 500px; }
+        h2 { text-align: center; color: #333; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        button { background: #667eea; color: white; padding: 15px; border: none; border-radius: 8px; width: 100%; cursor: pointer; }
+        a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h2>Register New Account</h2>
+        <form method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="mobile" placeholder="Mobile Number" required>
+            <input type="text" name="aadhar" placeholder="Aadhar Number" required>
+            <input type="text" name="driving_license" placeholder="Driving License Number" required>
+            
+            <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <select name="location" required>
+                <option value="">Select Location</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="bangalore">Bangalore</option>
+                <option value="chennai">Chennai</option>
+                <option value="kolkata">Kolkata</option>
+            </select>
+            
+            <button type="submit">Register</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px;">Already have account? <a href="/login">Login here</a></p>
+        <p style="text-align: center;"><a href="/">Back to Home</a></p>
+    </div>
+</body>
+</html>
