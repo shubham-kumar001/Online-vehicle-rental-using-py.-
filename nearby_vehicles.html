@@ -1,0 +1,458 @@
+[file name]: nearby_vehicles.html
+[file content begin]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Vehicles | DriveEasy Rentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-brand i {
+            color: #667eea;
+            font-size: 1.8rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .location-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .location-card h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .vehicle-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .distance-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        .vehicle-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .vehicle-header h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .price-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .vehicle-list {
+            padding: 20px;
+        }
+        
+        .vehicle-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .vehicle-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .vehicle-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .vehicle-list li i {
+            color: #667eea;
+            width: 20px;
+        }
+        
+        .vehicle-footer {
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .vehicle-footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        
+        .map-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .map-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                padding: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-car"></i>
+                <span>DriveEasy Rentals</span>
+            </div>
+            <div class="nav-menu">
+                <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{{ url_for('nearby_vehicles') }}" class="active"><i class="fas fa-map-marker-alt"></i> Nearby</a>
+                <a href="{{ url_for('vehicles') }}"><i class="fas fa-motorcycle"></i> All Vehicles</a>
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-map-marker-alt"></i> Vehicles Near You</h1>
+            <p>Showing vehicles available near your current location</p>
+            
+            <div class="location-card">
+                <h3><i class="fas fa-location-dot"></i> Your Location</h3>
+                <p>{{ location }}</p>
+                {% if user_lat and user_lng %}
+                <p><small>Coordinates: {{ user_lat }}, {{ user_lng }}</small></p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="map-section">
+            <h2><i class="fas fa-map"></i> Nearby Rental Locations</h2>
+            <div id="map"></div>
+        </div>
+        
+        <div class="vehicle-grid">
+            {% for category, vehicles_list in vehicles.items() %}
+            <div class="vehicle-card">
+                <div class="distance-badge">~{{ range(1, 10)|random }} km away</div>
+                <div class="vehicle-header">
+                    <h3>{{ categories[category]['name'] if category in categories else category|title }}</h3>
+                    <span class="price-tag">
+                        {% if category == 'minibus' %}
+                            ₹{{ categories[category]['per_day'] }}/day
+                        {% else %}
+                            ₹{{ categories[category]['12_hours'] }}/12hrs
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="vehicle-list">
+                    <ul>
+                        {% for vehicle in vehicles_list[:3] %}
+                        <li><i class="fas fa-check-circle"></i> {{ vehicle }}</li>
+                        {% endfor %}
+                        {% if vehicles_list|length > 3 %}
+                        <li><i class="fas fa-ellipsis-h"></i> +{{ vehicles_list|length - 3 }} more options</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="vehicle-footer">
+                    <p>Available nearby</p>
+                    <a href="{{ url_for('book_vehicle', category=category) }}" class="btn btn-small">
+                        <i class="fas fa-calendar-alt"></i> Book Now
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Google Maps API -->
+    <script>
+        function initMap() {
+            // Default center (Delhi)
+            const defaultCenter = { lat: 28.7041, lng: 77.1025 };
+            
+            // Use user's location if available
+            {% if user_lat and user_lng %}
+            const userLocation = { 
+                lat: {{ user_lat }}, 
+                lng: {{ user_lng }} 
+            };
+            {% else %}
+            const userLocation = defaultCenter;
+            {% endif %}
+            
+            // Create map
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: userLocation,
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#f5f5f5"}]
+                    }
+                ]
+            });
+            
+            // Add user marker
+            const userMarker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: "Your Location",
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: "#667eea",
+                    fillOpacity: 1,
+                    strokeColor: "#ffffff",
+                    strokeWeight: 2
+                }
+            });
+            
+            // Add info window for user
+            const userInfo = new google.maps.InfoWindow({
+                content: '<div style="padding: 10px;"><strong>Your Location</strong><br>{{ location }}</div>'
+            });
+            
+            userMarker.addListener("click", () => {
+                userInfo.open(map, userMarker);
+            });
+            
+            // Simulated rental locations (in real app, these would come from database)
+            const rentalLocations = [
+                {lat: userLocation.lat + 0.01, lng: userLocation.lng + 0.01, title: "DriveEasy Branch 1"},
+                {lat: userLocation.lat - 0.02, lng: userLocation.lng + 0.005, title: "DriveEasy Branch 2"},
+                {lat: userLocation.lat + 0.015, lng: userLocation.lng - 0.01, title: "DriveEasy Branch 3"},
+                {lat: userLocation.lat - 0.005, lng: userLocation.lng - 0.015, title: "Partner Garage"}
+            ];
+            
+            // Add rental location markers
+            rentalLocations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: location.title,
+                    icon: {
+                        url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+                });
+                
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div style="padding: 10px;">
+                        <strong>${location.title}</strong><br>
+                        <small>Open: 8AM - 10PM</small><br>
+                        <small><i class="fas fa-phone"></i> 1800-123-4567</small>
+                    </div>`
+                });
+                
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+        }
+        
+        // Load Google Maps API
+        function loadGoogleMaps() {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+        
+        // Load maps when page loads
+        window.addEventListener('DOMContentLoaded', loadGoogleMaps);
+    </script>
+</body>
+</html>
+[file content end]
